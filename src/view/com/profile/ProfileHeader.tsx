@@ -160,6 +160,14 @@ const ProfileHeaderLoaded = observer(function ProfileHeaderLoadedImpl({
     })
   }, [track, store, view, onRefreshAll])
 
+  const onPressOpenCommission = React.useCallback(() => {
+    store.shell.openModal({
+      name: 'open-commission',
+      profileView: view,
+      onUpdate: onRefreshAll,
+    })
+  }, [store, view, onRefreshAll])
+
   const trackPress = React.useCallback(
     (f: 'Followers' | 'Follows') => {
       track(`ProfileHeader:${f}ButtonClicked`, {
@@ -356,17 +364,19 @@ const ProfileHeaderLoaded = observer(function ProfileHeaderLoadedImpl({
       <View style={styles.content}>
         <View style={[styles.buttonsLine]}>
           {isMe ? (
-            <TouchableOpacity
-              testID="profileHeaderEditProfileButton"
-              onPress={onPressEditProfile}
-              style={[styles.btn, styles.mainBtn, pal.btn]}
-              accessibilityRole="button"
-              accessibilityLabel="Edit profile"
-              accessibilityHint="Opens editor for profile display name, avatar, background image, and description">
-              <Text type="button" style={pal.text}>
-                Edit Profile
-              </Text>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                testID="profileHeaderEditProfileButton"
+                onPress={onPressEditProfile}
+                style={[styles.btn, styles.mainBtn, pal.btn]}
+                accessibilityRole="button"
+                accessibilityLabel="Edit profile"
+                accessibilityHint="Opens editor for profile display name, avatar, background image, and description">
+                <Text type="button" style={pal.text}>
+                  Edit Profile
+                </Text>
+              </TouchableOpacity>
+            </>
           ) : view.viewer.blocking ? (
             <TouchableOpacity
               testID="unblockBtn"
@@ -463,7 +473,8 @@ const ProfileHeaderLoaded = observer(function ProfileHeaderLoadedImpl({
             </NativeDropdown>
           ) : undefined}
         </View>
-        <View>
+
+        <View style={styles.metricsLine}>
           <Text
             testID="profileHeaderDisplayName"
             type="title-2xl"
@@ -473,6 +484,17 @@ const ProfileHeaderLoaded = observer(function ProfileHeaderLoadedImpl({
               view.moderation.profile,
             )}
           </Text>
+          <TouchableOpacity
+            testID="profileHeaderEditProfileButton"
+            onPress={onPressOpenCommission}
+            style={[styles.commBtn, pal.btn]}
+            accessibilityRole="button"
+            accessibilityLabel="Open For Commissions"
+            accessibilityHint="Opens editor for profile display name, avatar, background image, and description">
+            <Text type="button" style={pal.text}>
+              Open Commissions
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.handleLine}>
           {view.viewer.followedBy && !blockHide ? (
@@ -651,6 +673,15 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     borderRadius: 50,
     marginLeft: 6,
+  },
+  commBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 7,
+    borderRadius: 50,
+    marginLeft: 68,
+    paddingHorizontal: 25,
   },
   title: {lineHeight: 38},
 

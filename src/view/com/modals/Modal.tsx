@@ -11,6 +11,7 @@ import once from 'lodash.once'
 
 import * as ConfirmModal from './Confirm'
 import * as EditProfileModal from './EditProfile'
+import * as OpenCommission from './OpenCommissions'
 import * as ProfilePreviewModal from './ProfilePreview'
 import * as ServerInputModal from './ServerInput'
 import * as RepostModal from './Repost'
@@ -83,6 +84,9 @@ export const ModalsContainer = observer(function ModalsContainer() {
   } else if (activeModal?.name === 'edit-profile') {
     snapPoints = EditProfileModal.snapPoints
     element = <EditProfileModal.Component {...activeModal} />
+  } else if (activeModal?.name === 'open-commission') {
+    snapPoints = OpenCommission.snapPoints
+    element = <OpenCommission.Component {...activeModal} />
   } else if (activeModal?.name === 'profile-preview') {
     snapPoints = ProfilePreviewModal.snapPoints
     element = <ProfilePreviewModal.Component {...activeModal} />

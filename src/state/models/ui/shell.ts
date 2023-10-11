@@ -33,6 +33,12 @@ export interface EditProfileModal {
   onUpdate?: () => void
 }
 
+export interface OpenCommissionModal {
+  name: 'open-commission'
+  profileView: ProfileModel
+  onUpdate?: () => void
+}
+
 export interface ProfilePreviewModal {
   name: 'profile-preview'
   did: string

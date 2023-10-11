@@ -8,6 +8,7 @@ import type {Modal as ModalIface} from 'state/models/ui/shell'
 
 import * as ConfirmModal from './Confirm'
 import * as EditProfileModal from './EditProfile'
+import * as OpenCommissionModal from './OpenCommissions'
 import * as ProfilePreviewModal from './ProfilePreview'
 import * as ServerInputModal from './ServerInput'
 import * as ReportModal from './report/Modal'
@@ -73,6 +74,8 @@ function Modal({modal}: {modal: ModalIface}) {
     element = <ConfirmModal.Component {...modal} />
   } else if (modal.name === 'edit-profile') {
     element = <EditProfileModal.Component {...modal} />
+  } else if (modal.name === 'open-commission') {
+    element = <OpenCommissionModal.Component {...modal} />
   } else if (modal.name === 'profile-preview') {
     element = <ProfilePreviewModal.Component {...modal} />
   } else if (modal.name === 'server-input') {
